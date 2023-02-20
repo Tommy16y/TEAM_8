@@ -47,8 +47,12 @@ INSTALLED_APPS = [
 
 
     #apps
-    'applications.helper',
     'applications.account',
+    'applications.telegrambot',
+    'applications.hotels',
+    'applications.feedback',
+    'applications.booking',
+    'applications.rooms',
 ]
 
 MIDDLEWARE = [
