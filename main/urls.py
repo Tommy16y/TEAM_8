@@ -30,4 +30,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('swagger/', schema_view.with_ui('swagger')),
     path('api/account/', include('applications.account.urls')),
+    path('api/hotels/', include('applications.hotels.urls')),
+
 ]
