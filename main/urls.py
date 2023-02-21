@@ -33,7 +33,7 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger')),
     path('api/account/', include('applications.account.urls')),
     path('api/rooms/',include('applications.rooms.urls')),
-] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
     path('api/hotels/', include('applications.hotels.urls')),
+    path('api/hotels/booking/', include('applications.booking.urls')),
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
-]
