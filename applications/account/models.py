@@ -40,6 +40,8 @@ class CustomUser(AbstractUser):
     is_active = models.BooleanField(default=False)
     username = None
     activation_code = models.CharField(max_length=50, blank=True)
+    activation_code2 = models.CharField(max_length=50, blank=True,null=True)
+    
 
 
     objects = UserManager()
