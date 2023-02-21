@@ -9,3 +9,6 @@ def send_activateion_code(email, code):
 
 
     )
+
+def send_activation_password(email, code ):
+    pass
