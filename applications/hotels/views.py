@@ -4,7 +4,7 @@ from rest_framework import mixins
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 # Create your views here.
 from applications.hotels.models import Hotels
-from applications.hotels.serializer import HotelSerializer
+from applications.hotels.serializer import HotelSerializer,DeitalHotelSerializer
 from applications.hotels.permissions import  IsAdminOrReadOnly
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.filters import OrderingFilter ,SearchFilter
@@ -38,16 +38,20 @@ class HotelModelViewSet(mixins.ListModelMixin,GenericViewSet):
 
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     fillterset_fields = ['adress','stars',]
-    search = ['name',]
+    search_fields = ['name',]
     ordering_fields = ['id','name',]
 
-
+    
+        
 
 
 class HotelDetailAPIView(generics.RetrieveAPIView):
     queryset = Hotels.objects.all()
-    serializer_class = HotelSerializer
+    serializer_class = DeitalHotelSerializer
     lookup_field = 'id'
+
+
+    
 
     
 

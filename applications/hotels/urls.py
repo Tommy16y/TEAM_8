@@ -7,6 +7,6 @@ router = DefaultRouter()
 router.register('',HotelModelViewSet)
 
 urlpatterns = [
-    path('hotels/',include(router.urls)),
-    path('hotels/<int:id>/', HotelDetailAPIView.as_view()),
+    path('',include(router.urls)),
+    path('<int:id>/', HotelDetailAPIView.as_view()),
 ]
