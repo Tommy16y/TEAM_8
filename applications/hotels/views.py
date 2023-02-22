@@ -9,7 +9,7 @@ from applications.hotels.permissions import  IsAdminOrReadOnly
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.filters import OrderingFilter ,SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
-
+from rest_framework import generics
 
 class CustomPagination(PageNumberPagination):
     page_size = 3 
@@ -32,6 +32,7 @@ class HotelModelViewSet(mixins.ListModelMixin,GenericViewSet):
     queryset = Hotels.objects.all()
     serializer_class = HotelSerializer
     permission_classes = [IsAdminOrReadOnly]
+    
 
     pagination_class =CustomPagination
 
@@ -43,7 +44,10 @@ class HotelModelViewSet(mixins.ListModelMixin,GenericViewSet):
 
 
 
-
+class HotelDetailAPIView(generics.RetrieveAPIView):
+    queryset = Hotels.objects.all()
+    serializer_class = HotelSerializer
+    lookup_field = 'id'
 
     
 
