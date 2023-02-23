@@ -59,14 +59,12 @@ class ChangePasswordSerializer(serializers.Serializer):
     new_password = serializers.CharField(required=True)
 
     def validate_new_password(self, value):
-        # проверяем, что новый пароль содержит хотя бы 2 символов
         if len(value) < 1:
             raise serializers.ValidationError("Пароль должен содержать хотя бы 2 символа")
 
         return value
 
     def validate_old_password(self, value):
-        # проверяем, что старый пароль совпадает с паролем пользователя
         user = self.context['request'].user
         if not user.check_password(value):
             raise serializers.ValidationError("Старый пароль неверный")

@@ -20,6 +20,3 @@ def send_activation_code2(email, code):
     )
 
 
-
-def send_activation_password(email, code ):
-    pass

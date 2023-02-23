@@ -13,12 +13,14 @@ User =get_user_model()
 
 class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
+    
     serializer_class = BookingSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(user = self.request.user)
 
+      
 
 class ConfirmView(APIView):
     def get(self, request, activation_code):
@@ -27,12 +29,13 @@ class ConfirmView(APIView):
             booking = Booking.objects.get(user = user)
             print(booking.room)
             room = HotelRooms.objects.get(title = booking.room)
+
             user.activation_code =''
             booking.is_confirmed = True
             room.busy = True
             booking.save()
             user.save()
             room.save()
-            return Response('Ваша бронь потвердилась', status= 200)
+            return Response(f'Ваша бронь потвердилась.Комната {room.title},Категория {room.category},дата заезда {booking.check_in_date},дата выезда {booking.check_out_date},количество гостей {booking.num_of_guests}.Общая цена {booking.total_price},ждем вас!) ', status= 200)
         except User.DoesNotExist:
             return Response('Что-то пошло не так',status=400)
