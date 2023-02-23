@@ -9,7 +9,7 @@ class ImageAdmin(admin.TabularInline):
 
 
 class HotelsAdmin(admin.ModelAdmin):
-    inlines = (ImageAdmin),
+    inlines = (ImageAdmin,)
     list_display = ('name','adress',)
     
 

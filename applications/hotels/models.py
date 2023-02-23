@@ -23,16 +23,16 @@ class HotelImage(models.Model):
         return f'{self.image}'
 
 
-# class Comment(models.Model):
-#     owner =  models.ForeignKey(User , on_delete=models.CASCADE, related_name='users')
-#     hotel =  models.ForeignKey(Hotels , on_delete=models.CASCADE, related_name= 'hotels')
-#     body = models.TextField()
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at =  models.DateTimeField(auto_now=True)
+class Comment(models.Model):
+    owner =  models.ForeignKey(User , on_delete=models.CASCADE, related_name='users')
+    hotel =  models.ForeignKey(Hotels , on_delete=models.CASCADE, related_name= 'hotels')
+    body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at =  models.DateTimeField(auto_now=True)
 
 
-#     def __str__(self):
-#         return f'{self.owner} -> {self.hotel.name}'
+    def __str__(self):
+        return f'{self.owner} -> {self.hotel.name}'
 
 
 

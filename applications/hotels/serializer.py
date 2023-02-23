@@ -14,4 +14,5 @@ class ImageSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
 
-    
+class CommentSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.email')    
