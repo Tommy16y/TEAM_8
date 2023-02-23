@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from applications.rooms.models import HotelRooms, RoomImage
 from rest_framework.viewsets import ViewSet,ModelViewSet
-from applications.rooms.serializers import HotelRoomsSerializer,RoomImageSerializer
+from applications.rooms.serializers import HotelRoomsSerializer,RoomImageSerializer,DetailRoomSerializer
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import generics
@@ -29,6 +29,10 @@ class CreateImageAPIView(generics.CreateAPIView):
         
     
 
+class HotelDetailAPIView(generics.RetrieveAPIView):
+    queryset = HotelRooms.objects.all()
+    serializer_class = DetailRoomSerializer
+    lookup_field = 'id'
 
 
 

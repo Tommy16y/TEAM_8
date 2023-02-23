@@ -8,5 +8,7 @@ router.register('',HotelRoomViewSet)
 
 urlpatterns = [
     path('',include(router.urls)),
-    path('add/image/',CreateImageAPIView.as_view())
+    path('add/image/',CreateImageAPIView.as_view()),
+    path('<int:id>/',HotelDetailAPIView.as_view()),
+
 ]

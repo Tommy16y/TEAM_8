@@ -6,6 +6,7 @@ User = get_user_model()
 
 
 class Hotels(models.Model):
+    
     name = models.CharField(max_length=30)
     adress = models.CharField(max_length=30)
     description = models.TextField()

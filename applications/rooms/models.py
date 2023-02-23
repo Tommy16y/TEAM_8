@@ -20,10 +20,11 @@ class Category(models.Model):
 
 class HotelRooms(models.Model):
     # category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='categories')
+    
     title = models.CharField('Номер',max_length=50)
     description = models.TextField('Описание номера')
     busy = models.BooleanField(default=True)
-    hotel = models.ForeignKey(Hotels,on_delete=models.CASCADE,related_name='hotels',default= None)
+    hotel = models.ForeignKey(Hotels,on_delete=models.CASCADE,related_name='rooms',default= None)
     # image = models.ImageField(upload_to='images')
     # price = models.Choices(PRICE_ROOM)
 
@@ -33,14 +34,14 @@ class HotelRooms(models.Model):
 
 
 class Price(models.Model):
-    PRICE_ROOM = (
-    ('lux', '200'),
-    ('pollux', '150'),
-    ('standart','100')
+    # PRICE_ROOM = (
+    # ('lux','200'),
+    # ('premium','150'),
+    # ('standart','100'),
 
-    )
-    
-    price = models.DecimalField(max_length=30,max_digits=5,choices=PRICE_ROOM,decimal_places=5,default=0)
+    # )
+    # choices=PRICE_ROOM,,.
+    price = models.CharField(max_length=30,default=0)
     room = models.ForeignKey(HotelRooms,related_name='room_price',on_delete=models.CASCADE, default=None)
     category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='categories')
 
