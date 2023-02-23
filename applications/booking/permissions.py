@@ -4,7 +4,7 @@ class CanCreateBooking(BasePermission):
     
     def has_permission(self, request, view):
        
-        if request.method == 'GET':
+        if request.method == 'POST':
             return True
 
    
