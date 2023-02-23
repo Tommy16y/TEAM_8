@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet,GenericViewSet
 from rest_framework import mixins
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly , IsAdminUser
 # Create your views here.
 from applications.hotels.models import Hotels
 from applications.hotels.serializer import HotelSerializer,DeitalHotelSerializer
@@ -46,6 +46,7 @@ class HotelModelViewSet(mixins.ListModelMixin,GenericViewSet):
 
 
 class HotelDetailAPIView(generics.RetrieveAPIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Hotels.objects.all()
     serializer_class = DeitalHotelSerializer
     lookup_field = 'id'

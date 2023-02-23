@@ -34,7 +34,7 @@ class DeitalHotelSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         # queryset = HotelRooms.objects.all()
         qury = instance.rooms.all()
-        qury = instance.rooms.filter(busy=True)
+        qury = instance.rooms.filter(busy=False)
         a = []
         for i in qury:
             a.append(HotelRoomSerializer(i).data)
