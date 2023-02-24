@@ -1,11 +1,15 @@
 from django.shortcuts import render
-from applications.hotels.models import Hotels, Rating
-from applications.hotels.serializer import HotelSerializer, RatingSerializer
-from rest_framework.viewsets import ModelViewSet,GenericViewSet
-from rest_framework import mixins
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-# Create your views here.
-class RatingModelViewSet(mixins.ListModelMixin,GenericViewSet):
-    queryset = Rating.objects.all()
-    serializer_class = RatingSerializer
-    permission_classes = [IsAuthenticated]
+from rest_framework.viewsets import ViewSet,ModelViewSet
+from applications.feedback.models import CommentLike
+from applications.feedback.serializers import CommentLikeSerializer
+from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
+
+class CommentLikeModelViewSet(ModelViewSet):
+    queryset = CommentLike.objects.all()
+    serializer_class = CommentLikeSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+  

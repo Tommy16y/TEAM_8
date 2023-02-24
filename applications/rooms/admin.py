@@ -7,14 +7,13 @@ class ImageAdmin(admin.TabularInline):
     fields = ('image',)
     max_num = 4
 
+
+
 class HotelRoomsAdmin(admin.ModelAdmin):
     inlines = (ImageAdmin,)
     # list_display = ('tltle','category','busy','images')
 
 
-
 admin.site.register(HotelRooms,HotelRoomsAdmin)
 admin.site.register(RoomImage)
 admin.site.register(Category)
-
-
