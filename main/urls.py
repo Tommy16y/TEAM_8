@@ -35,5 +35,6 @@ urlpatterns = [
     path('hotels/<int:id>/rooms/',include('applications.rooms.urls')),
     path('hotels/', include('applications.hotels.urls')),
     path('hotels/booking/', include('applications.booking.urls')),
+    path('api/feedback/',include('applications.feedback.urls')),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 

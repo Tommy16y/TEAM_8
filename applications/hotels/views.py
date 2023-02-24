@@ -1,15 +1,18 @@
 from django.shortcuts import render
-from rest_framework.viewsets import ModelViewSet,GenericViewSet
+from rest_framework.viewsets import ModelViewSet,GenericViewSet,ViewSet
 from rest_framework import mixins
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly , IsAdminUser
 # Create your views here.
-from applications.hotels.models import Hotels
-from applications.hotels.serializer import HotelSerializer,DeitalHotelSerializer
+from applications.hotels.models import Hotels,Comment
+from applications.hotels.serializer import HotelSerializer,DeitalHotelSerializer,CommentSerializer
 from applications.hotels.permissions import CanCreateBooking
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.filters import OrderingFilter ,SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.decorators import action
+from applications.feedback.models import CommentLike
 
 class CustomPagination(PageNumberPagination):
     page_size = 3 
@@ -55,6 +58,46 @@ class HotelDetailAPIView(generics.RetrieveAPIView):
     queryset = Hotels.objects.all()
     serializer_class = DeitalHotelSerializer
     lookup_field = 'id'
+
+
+
+class CommentViewSet(ViewSet):
+    def list(self,request):
+        comments = Comment.objects.all()
+        serializer = CommentSerializer(comments,many=True)
+        return Response(serializer.data)
+
+
+class CommentModelViewSet(ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer      
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+
+
+    @action(methods=['POST'],detail=True)  # lokalhost:8000/api/v1/post/15/like/
+    def like(self,request,pk,*args,**kwargs):
+        user = request.user
+        # print(user), '!!!!!!!!!'
+        like_obj,_ = CommentLike.objects.get_or_create(owner=user,comment_id=pk)
+        like_obj.is_like = not like_obj.is_like
+        like_obj.save()
+        status = 'liked'
+
+        if not like_obj.is_like:
+            status = 'unliked'
+        
+
+        return Response({'status': status})   
+
+
+    
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)      
+     
+
+
 
 
     

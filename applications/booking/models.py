@@ -3,10 +3,14 @@ from applications.rooms.models import HotelRooms
 from django.db import models
 from django.contrib.auth import get_user_model
 
+
+
 User = get_user_model()
 
 class Booking(models.Model):
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # hotel = models.ForeignKey(HotelRooms,on_delete=models.CASCADE,related_name='hotels')
     room = models.ForeignKey(HotelRooms, on_delete=models.CASCADE)
     check_in_date = models.DateField()
     check_out_date = models.DateField()

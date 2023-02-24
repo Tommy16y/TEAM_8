@@ -8,6 +8,9 @@ class RoomImageSerializer(serializers.ModelSerializer):
         model = RoomImage
         fields = '__all__'
 
+
+
+
 class HotelRoomsSerializer(serializers.ModelSerializer):
     images = RoomImageSerializer(many=True,read_only=True)  
 
@@ -15,7 +18,6 @@ class HotelRoomsSerializer(serializers.ModelSerializer):
     class Meta:
         model = HotelRooms
         fields = '__all__'  
-
 
 
 
