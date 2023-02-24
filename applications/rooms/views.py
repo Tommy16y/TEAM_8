@@ -3,6 +3,7 @@ from applications.rooms.models import HotelRooms, RoomImage
 from rest_framework.viewsets import ViewSet,ModelViewSet , GenericViewSet
 from applications.rooms.serializers import HotelRoomsSerializer,RoomImageSerializer,DetailRoomSerializer
 from rest_framework.pagination import PageNumberPagination
+from applications.hotels.permissions import CanCreateBooking
 from rest_framework.permissions import IsAuthenticated ,IsAdminUser , IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import generics
 from rest_framework  import mixins
@@ -52,10 +53,10 @@ class UserHotelRoomViewSet(mixins.ListModelMixin,GenericViewSet):
 #     permission_classes = [IsAdminUser]
 
 
-class AdminRoomsDeleteAPIView(generics.DestroyAPIView):
+class AdminRoomsDeleteAPIView(generics.DestroyAPIView,generics.CreateAPIView):
     queryset = HotelRooms.objects.all()
     serializer_class = HotelRoomsSerializer
-
+    permission_classes = [CanCreateBooking]
 
 
 

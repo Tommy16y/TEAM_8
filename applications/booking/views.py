@@ -1,24 +1,36 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from applications.booking.models import Booking
 from applications.booking.serializers import BookingSerializer
 from rest_framework.views import APIView
+from rest_framework.viewsets import GenericViewSet
 from django.contrib.auth import get_user_model
 from applications.booking.models import Booking
 from rest_framework.response import Response
 from applications.rooms.models import HotelRooms
-
+from rest_framework import mixins
+from applications.booking.permissions import CanCreateBooking
 User =get_user_model()
 
-class BookingViewSet(viewsets.ModelViewSet):
+class AdminBookingViewSet(viewsets.ModelViewSet):
+
     queryset = Booking.objects.all()
-    
     serializer_class = BookingSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, CanCreateBooking ]
 
     def perform_create(self, serializer):
         serializer.save(user = self.request.user)
+
+
+# class UserBookingViewSet(mixins.CreateModelMixin):
+#     serializer_class = BookingSerializer
+#     PermissionError = [IsAuth]
+
+#     def perform_create(self, serializer):
+#         serializer.save(user = self.request.user)
+
+
 
       
 
