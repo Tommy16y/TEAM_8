@@ -17,6 +17,7 @@ class ImageSerializer(serializers.ModelSerializer):
     
 
 class DeitalHotelSerializer(serializers.ModelSerializer):
+    images = ImageSerializer(many=True, read_only=True)
     # rooms = HotelRoomSerializer(many= True, read_only = True)
     class Meta:
         model = Hotels
@@ -32,13 +33,19 @@ class DeitalHotelSerializer(serializers.ModelSerializer):
     
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        # queryset = HotelRooms.objects.all()
+        # img = instance.images.all()
+        # print()
+        # b = []
+        # for i in img:
+        #     b.append(ImageSerializer(i).data)
+        queryset = HotelRooms.objects.all()
         qury = instance.rooms.all()
         qury = instance.rooms.filter(busy=False)
         a = []
         for i in qury:
             a.append(HotelRoomSerializer(i).data)
         representation['all_rooms'] = a
+        # representation['img'] = b
         return representation
 
 
