@@ -16,11 +16,20 @@ class Booking(models.Model):
     check_out_date = models.DateField()
     num_of_guests = models.IntegerField()
     is_confirmed = models.BooleanField(default=False)
-    total_price = models.IntegerField(default=0)
-    
-    
+    total_price = models.IntegerField(default = 0)
 
     def __str__(self):
-        return f"{self.room}: {self.check_in_date} to {self.check_out_date}"
+        return f"({self.check_in_date} to {self.check_out_date})"
+
+
+    # def create_total_price(self):
+    #     a = HotelRooms.objects.get(id = self.room)
+    #     self.totalprice = a.price*3
+
+
+        
+
+        
+
 
     
