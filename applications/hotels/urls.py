@@ -5,7 +5,7 @@ from applications.feedback.views import *
 
 
 router = DefaultRouter()
-# router.register('',HotelModelViewSet)
+router.register('',HotelModelViewSet)
 router.register('comments',CommentModelViewSet)
 
 urlpatterns = [
