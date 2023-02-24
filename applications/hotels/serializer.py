@@ -12,6 +12,6 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = HotelImage
         fields = '__all__'
-    
 
+        
     

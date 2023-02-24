@@ -1,4 +1,4 @@
-"""main URL Configuration
+"""name_project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -14,27 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path , include
-from drf_yasg import openapi
-from drf_yasg.views import get_schema_view
-from django.conf.urls.static import static
-from django.conf import settings
-schema_view = get_schema_view(
-    openapi.Info(
-        title='Python 25 Blog',
-        default_version='v1',
-        description='blog'
-    ),
-    public = True
-)
+from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('swagger/', schema_view.with_ui('swagger')),
-    path('api/account/', include('applications.account.urls')),
-    path('api/rooms/',include('applications.rooms.urls')),
-    path('api/hotels/', include('applications.hotels.urls')),
-] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
-    
-
-
+]

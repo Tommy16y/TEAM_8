@@ -45,6 +45,8 @@ class HotelModelViewSet(mixins.ListModelMixin,GenericViewSet):
 
 
 
+
+
     
 
     
