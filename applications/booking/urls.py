@@ -1,9 +1,9 @@
 from django.urls import path, include
 from rest_framework import routers
-from applications.booking.views import BookingViewSet,ConfirmView
+from applications.booking.views import AdminBookingViewSet,ConfirmView
 
 router = routers.DefaultRouter()
-router.register('', BookingViewSet)
+router.register('', AdminBookingViewSet)
 
 urlpatterns = [
     path('hotels/', include(router.urls)),

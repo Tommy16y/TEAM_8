@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 # Create your views here.
 from applications.hotels.models import Hotels,Comment
 from applications.hotels.serializer import HotelSerializer,DeitalHotelSerializer,CommentSerializer
-from applications.hotels.permissions import  IsAdminOrReadOnly
+from applications.hotels.permissions import CanCreateBooking
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.filters import OrderingFilter ,SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
@@ -30,11 +30,14 @@ class CustomPagination(PageNumberPagination):
 #         return serializer.save(owner = self.request.user)
 
 
-class HotelModelViewSet(mixins.ListModelMixin,GenericViewSet):
+class HotelModelViewSet(mixins.CreateModelMixin,
+                   mixins.RetrieveModelMixin,
+                   mixins.UpdateModelMixin,
+                   mixins.DestroyModelMixin,mixins.ListModelMixin,GenericViewSet):
 
     queryset = Hotels.objects.all()
     serializer_class = HotelSerializer
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [CanCreateBooking]
     
 
     pagination_class =CustomPagination
@@ -43,6 +46,8 @@ class HotelModelViewSet(mixins.ListModelMixin,GenericViewSet):
     fillterset_fields = ['adress','stars',]
     search_fields = ['name',]
     ordering_fields = ['id','name',]
+
+
 
     
         

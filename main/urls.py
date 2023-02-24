@@ -31,10 +31,10 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('swagger/', schema_view.with_ui('swagger')),
-    path('api/account/', include('applications.account.urls')),
-    path('api/hotels/<int:id>/rooms/',include('applications.rooms.urls')),
-    path('api/hotels/', include('applications.hotels.urls')),
-    path('api/booking/', include('applications.booking.urls')),
+    path('account/', include('applications.account.urls')),
+    path('hotels/<int:id>/rooms/',include('applications.rooms.urls')),
+    path('hotels/', include('applications.hotels.urls')),
+    path('hotels/booking/', include('applications.booking.urls')),
     path('api/feedback/',include('applications.feedback.urls')),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 

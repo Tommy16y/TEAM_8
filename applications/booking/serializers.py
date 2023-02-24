@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from applications.rooms.models import HotelRooms
 from rest_framework.response import Response
 from applications.account.send_email import send_activation_code2
+
 User = get_user_model()
 
 class BookingSerializer(serializers.ModelSerializer):
