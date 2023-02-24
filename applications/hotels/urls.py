@@ -10,6 +10,5 @@ router.register('comments',CommentModelViewSet)
 
 urlpatterns = [
     path('',include(router.urls)),
-    path('<int:id>/', HotelDetailAPIView.as_view()),
-    
+    path('detail/<int:id>/', HotelDetailAPIView.as_view()),
 ]

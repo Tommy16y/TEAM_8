@@ -11,7 +11,7 @@ class Hotels(models.Model):
     adress = models.CharField(max_length=30)
     description = models.TextField()
     # image = models.ImageField(upload_to='images',blank=True,null=True)
-    stars = models.SmallIntegerField(validators=[MinValueValidator(3), MaxValueValidator(5)],blank=True,null=True)
+    stars = models.SmallIntegerField(validators=[MinValueValidator(3), MaxValueValidator(5)],default=3)
 
     def __str__(self):
         return f'{self.name}'
