@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from applications.rooms.models import HotelRooms,RoomImage
+from applications.rooms.models import HotelRooms,RoomImage, Category    
 
 
 class RoomImageSerializer(serializers.ModelSerializer):
@@ -13,8 +13,7 @@ class RoomImageSerializer(serializers.ModelSerializer):
 
 class HotelRoomsSerializer(serializers.ModelSerializer):
     images = RoomImageSerializer(many=True,read_only=True)  
-
-
+    
     class Meta:
         model = HotelRooms
         fields = '__all__'  
@@ -44,10 +43,4 @@ class DetailRoomSerializer(serializers.Serializer):
         fields = '__all__'
 
 
-# class DeitalHotelSerializer(serializers.ModelSerializer):
-#     # rooms = HotelRoomSerializer(many= True, read_only = True)
-#     class Meta:
-#         model = Hotels
-#         fields =  '__all__'
-    
-    
+

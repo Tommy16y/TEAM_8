@@ -1,6 +1,13 @@
 from django.contrib import admin
 from applications.hotels.models import Hotels,HotelImage,Comment
-# Register your models here.
+from applications.feedback.models import Rating
+from django.db.models import Avg
+# Register your models here.    
+
+class RatingAdmin(admin.TabularInline):
+    model = Rating 
+    fields = ('rating',)
+    
 
 class ImageAdmin(admin.TabularInline):
     model = HotelImage
@@ -12,8 +19,13 @@ class CommentAdmin(admin.ModelAdmin):
     fields = ('body',)
 
 class HotelsAdmin(admin.ModelAdmin):
-    inlines = (ImageAdmin,)
-    list_display = ('name','adress',)
+    inlines = (ImageAdmin,RatingAdmin,)
+    list_display = ('name','adress','rating_count',)
+    
+    def rating_count(self, obj):
+        return obj.ratings.aggregate(Avg('rating'))['rating__avg']
+
+
     
 
 admin.site.register(Hotels, HotelsAdmin)
