@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator,MaxValueValidator
 from django.contrib.auth import get_user_model
 from applications.hotels.models import Comment,Hotels
 from django.core.validators import MinValueValidator,MaxValueValidator

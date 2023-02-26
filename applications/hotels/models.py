@@ -37,6 +37,20 @@ class Comment(models.Model):
         return f'{self.owner} -> {self.hotel.name}'
 
 
+# class RatingStar(models.Model):
+#         #звезда рейтинга
+#     value = models.SmallIntegerField("значение", default=7)
+    
+#     def __str__(self):
+#         return f'{self.value}'
+
+#     class Meta:
+#         verbose_name = 'Звезда рейтинга'
+#         verbose_name_plural = 'Звезда рейтинга'
+#         ordering =["-value"]
+
+
+
 
 
 
