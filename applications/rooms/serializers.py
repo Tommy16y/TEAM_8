@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from applications.rooms.models import HotelRooms,RoomImage, Category    
+from applications.rooms.models import HotelRooms,RoomImage    
 
 
 class RoomImageSerializer(serializers.ModelSerializer):

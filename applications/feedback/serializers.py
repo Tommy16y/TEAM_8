@@ -7,13 +7,13 @@ class CommentLikeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CommentLike
-        fields = '__all__'
+        fields = ('comment',)
 
 class RatingSerializer(serializers.ModelSerializer):
     # owner = serializers.ReadOnlyField(source='owner.email')
     class Meta:
         model = Rating
-        fields = ('rating','hotel','owner')
+        fields = ('rating','hotel',)
 
 
 class FavoriteSerializer(serializers.ModelSerializer):

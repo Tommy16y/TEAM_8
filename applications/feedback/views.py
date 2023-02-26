@@ -15,6 +15,10 @@ class CommentLikeModelViewSet(ModelViewSet):
     serializer_class = CommentLikeSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    def perform_create(self, serializer):
+        serializer.save(owner =self.request.user)
+
+
 
 class RatingModelViewSet(mixins.ListModelMixin,GenericViewSet,mixins.CreateModelMixin):
     queryset = Rating.objects.all()
@@ -28,6 +32,11 @@ class RatingModelViewSet(mixins.ListModelMixin,GenericViewSet,mixins.CreateModel
         queryset = super().get_queryset()
         queryset = queryset.filter(owner = self.request.user)
         return queryset
+    
+    def perform_create(self, serializer):
+        serializer.save(owner =self.request.user)
+
+
 
 class FavoriteViewSet(mixins.CreateModelMixin,
                mixins.RetrieveModelMixin,
@@ -40,7 +49,7 @@ class FavoriteViewSet(mixins.CreateModelMixin,
 
 
     def perform_create(self, serializer):
-        return super().perform_create(owner = self.request.user)
+        serializer.save(owner = self.request.user)
 
     def get_queryset(self):
         queryset = super().get_queryset()

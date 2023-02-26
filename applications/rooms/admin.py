@@ -1,5 +1,5 @@
 from django.contrib import admin
-from applications.rooms.models import HotelRooms,RoomImage,Category
+from applications.rooms.models import HotelRooms,RoomImage
 
 
 class ImageAdmin(admin.TabularInline):
@@ -16,4 +16,3 @@ class HotelRoomsAdmin(admin.ModelAdmin):
 
 admin.site.register(HotelRooms,HotelRoomsAdmin)
 admin.site.register(RoomImage)
-admin.site.register(Category)
