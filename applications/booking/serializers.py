@@ -26,7 +26,7 @@ class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = ('id', 'user', 'room', 'check_in_date', 'check_out_date', 'num_of_guests', 'is_confirmed','total_price')
-        read_only_fields = ('id','user','total_price')
+        read_only_fields = ('id','user','total_price',)
         
     def create(self, validated_data):
         validated_data['user'] = self.context['request'].user

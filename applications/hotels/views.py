@@ -12,7 +12,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from applications.feedback.models import CommentLike
+from applications.feedback.models import CommentLike,Rating
+from django.db.models import Avg
+from applications.feedback.serializers import RatinggSeriazlier
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 
@@ -80,7 +82,7 @@ class CommentModelViewSet(ModelViewSet):
 
 
     @action(methods=['POST'],detail=True)  # lokalhost:8000/api/v1/post/15/like/
-    def like(self,request,pk,*args,**kwargs):
+    def like(self,request,pk, *args, **kwargs):
         user = request.user
         # print(user), '!!!!!!!!!'
         like_obj,_ = CommentLike.objects.get_or_create(owner=user,comment_id=pk)
@@ -103,6 +105,12 @@ class CommentModelViewSet(ModelViewSet):
      
 
 
+# class RecomendedModelViewSet(ModelViewSet):
+
+#     queryset = Hotels.objects.all()
+#     serializer_class = HotelSerializer
+#     permission_classes = [IsAuthenticatedOrReadOnly]
+    
 
 
     
@@ -110,4 +118,16 @@ class CommentModelViewSet(ModelViewSet):
     
 
     
+# class HotelList(generics.ListAPIView):
+#     serializer_class = HotelSerializer
+#     permission_classes = [IsAuthenticatedOrReadOnly]
 
+
+#     # def get_queryset(self):
+#     #     hotel_ids = RatingList.get_queryset(self=self).values_list('id', flat=True)
+#     #     return Hotels.objects.filter(id__in=hotel_ids)
+#     def get(self, request):
+#         rating = Rating.objects.annotate(avg_rating=Avg('rating')).filter(avg_rating__gt=6)
+#         print(rating)
+#         serializer = RatinggSeriazlier(rating, many=True)
+#         return Response(serializer.data)

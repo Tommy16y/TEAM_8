@@ -48,6 +48,6 @@ class ConfirmView(APIView):
             booking.save()
             user.save()
             room.save()
-            return Response(f'Ваша бронь потвердилась.Комната {room.title},Категория {room.category},дата заезда {booking.check_in_date},дата выезда {booking.check_out_date},количество гостей {booking.num_of_guests}.Общая цена {booking.total_price},ждем вас!) ', status= 200)
+            return Response(f'Ваша бронь потвердилась.Отель {room.hotel},Комната {room.title},Категория {room.category},дата заезда {booking.check_in_date},дата выезда {booking.check_out_date},количество гостей {booking.num_of_guests}.Общая цена {booking.total_price},ждем вас!) ', status= 200)
         except User.DoesNotExist:
             return Response('Что-то пошло не так',status=400)

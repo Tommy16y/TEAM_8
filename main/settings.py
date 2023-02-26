@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'applications.feedback',
     'applications.booking',
     'applications.rooms',
-    'applications.newpass',
 ]
 
 MIDDLEWARE = [
