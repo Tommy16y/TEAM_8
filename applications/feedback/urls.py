@@ -5,7 +5,7 @@ from applications.hotels.views import *
 
 router = DefaultRouter()
 # router.register('',CommentModelViewSet)
-router.register('like',CommentLikeModelViewSet)
+# router.register('like',CommentLikeModelViewSet)
 router.register('favorite',FavoriteViewSet)
 router.register('rating',RatingModelViewSet)
 

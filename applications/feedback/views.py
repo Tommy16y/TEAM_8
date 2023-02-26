@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ViewSet,ModelViewSet,GenericViewSet
-from applications.feedback.models import CommentLike,Favorite,Rating
-from applications.feedback.serializers import CommentLikeSerializer,FavoriteSerializer,RatingSerializer,RatinggSeriazlier
+from applications.feedback.models import Favorite,Rating
+from applications.feedback.serializers import FavoriteSerializer,RatingSerializer,RatinggSeriazlier
 from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -10,13 +10,13 @@ from applications.hotels.models import Hotels
 from django.db.models import Avg
 
 
-class CommentLikeModelViewSet(ModelViewSet):
-    queryset = CommentLike.objects.all()
-    serializer_class = CommentLikeSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+# class CommentLikeModelViewSet(ModelViewSet):
+#     queryset = CommentLike.objects.all()
+#     serializer_class = CommentLikeSerializer
+#     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def perform_create(self, serializer):
-        serializer.save(owner =self.request.user)
+#     def perform_create(self, serializer):
+#         serializer.save(owner =self.request.user)
 
 
 
@@ -51,10 +51,10 @@ class FavoriteViewSet(mixins.CreateModelMixin,
     def perform_create(self, serializer):
         serializer.save(owner = self.request.user)
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.filter(owner = self.request.user)
-        return queryset
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     queryset = queryset.filter(owner = self.request.user)
+    #     return queryset
     
 
 # class RatingList(generics.ListAPIView):

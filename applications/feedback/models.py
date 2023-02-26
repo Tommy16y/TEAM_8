@@ -6,14 +6,14 @@ from django.core.validators import MinValueValidator,MaxValueValidator
 
 User = get_user_model()
 
-class CommentLike(models.Model):
-    owner = models.ForeignKey(User,on_delete=models.CASCADE,related_name='likes')
-    comment = models.ForeignKey(Comment,on_delete=models.CASCADE,related_name='likes')
-    is_like = models.BooleanField(default=False)
+# class CommentLike(models.Model):
+#     owner = models.ForeignKey(User,on_delete=models.CASCADE,related_name='likes')
+#     comment = models.ForeignKey(Comment,on_delete=models.CASCADE,related_name='likes')
+#     is_like = models.BooleanField(default=False)
 
 
-    def __str__(self):
-        return f'{self.comment}'
+#     def __str__(self):
+#         return f'{self.comment}'
 
 
 

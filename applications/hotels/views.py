@@ -12,7 +12,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from applications.feedback.models import CommentLike,Rating
+from applications.feedback.models import Rating
 from django.db.models import Avg
 from applications.feedback.serializers import RatinggSeriazlier
 from django.views.decorators.cache import cache_page
@@ -81,20 +81,20 @@ class CommentModelViewSet(ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-    @action(methods=['POST'],detail=True)  # lokalhost:8000/api/v1/post/15/like/
-    def like(self,request,pk, *args, **kwargs):
-        user = request.user
-        # print(user), '!!!!!!!!!'
-        like_obj,_ = CommentLike.objects.get_or_create(owner=user,comment_id=pk)
-        like_obj.is_like = not like_obj.is_like
-        like_obj.save()
-        status = 'liked'
+    # @action(methods=['POST'],detail=True)  # lokalhost:8000/api/v1/post/15/like/
+    # def like(self,request,pk, *args, **kwargs):
+    #     user = request.user
+    #     # print(user), '!!!!!!!!!'
+    #     like_obj,_ = CommentLike.objects.get_or_create(owner=user,comment_id=pk)
+    #     like_obj.is_like = not like_obj.is_like
+    #     like_obj.save()
+    #     status = 'liked'
 
-        if not like_obj.is_like:
-            status = 'unliked'
+    #     if not like_obj.is_like:
+    #         status = 'unliked'
         
 
-        return Response({'status': status})   
+    #     return Response({'status': status})   
 
 
     

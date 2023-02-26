@@ -23,10 +23,11 @@ from django.views.decorators.cache import cache_page
 
 
 schema_view = get_schema_view(
+    
     openapi.Info(
-        title='Python 25 Blog',
+        title='Python 25 Hack',
         default_version='v1',
-        description='blog'
+        description='Hack',
     ),
     public = True
 )

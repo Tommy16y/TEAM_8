@@ -1,13 +1,13 @@
 from rest_framework import serializers
-from applications.feedback.models import CommentLike,Rating,Favorite
+from applications.feedback.models import Rating,Favorite
 
 
 
-class CommentLikeSerializer(serializers.ModelSerializer):
+# class CommentLikeSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = CommentLike
-        fields = ('comment',)
+#     class Meta:
+#         model = CommentLike
+#         fields = ('comment',)
 
 class RatingSerializer(serializers.ModelSerializer):
     # owner = serializers.ReadOnlyField(source='owner.email')
