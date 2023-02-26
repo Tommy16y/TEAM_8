@@ -3,7 +3,7 @@ from applications.hotels.models import Hotels, HotelImage,Comment
 from applications.rooms.serializers import HotelRoomsSerializer,HotelRoomSerializer
 from applications.rooms.models import HotelRooms
 from django.db.models import Avg 
-
+from applications.feedback.serializers import CommentLikeSerializer
 
 
 class HotelSerializer(serializers.ModelSerializer):
@@ -24,6 +24,8 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.email')
+    likes = CommentLikeSerializer(many=True,read_only=True)
+
 
     class Meta:
         model = Comment 
