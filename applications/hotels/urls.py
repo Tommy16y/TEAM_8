@@ -5,10 +5,11 @@ from applications.feedback.views import *
 
 
 router = DefaultRouter()
-# router.register('',HotelModelViewSet)
+router.register('',HotelModelViewSet)
 router.register('comments',CommentModelViewSet)
 
 urlpatterns = [
     path('',include(router.urls)),
     path('detail/<int:id>/', HotelDetailAPIView.as_view()),
+    # path('recomended',HotelList.as_view()), 
 ]

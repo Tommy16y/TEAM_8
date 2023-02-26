@@ -10,11 +10,11 @@ from applications.hotels.models import Hotels
 # ]
 
 User = get_user_model()
-class Category(models.Model):
-    category = models.CharField('Классификация номера',max_length=50)
+# class Category(models.Model):
+    # category = models.CharField('Классификация номера',max_length=50)
 
-    def __str__(self):
-        return f'{self.category}'
+    # def __str__(self):
+    #     return f'{self.category}'
 
 
 # class Price(models.Model):
@@ -42,7 +42,8 @@ class HotelRooms(models.Model):
     description = models.TextField('Описание номера')
     busy = models.BooleanField(default=False)
     hotel = models.ForeignKey(Hotels,on_delete=models.CASCADE,related_name='rooms',default= None)
-    category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='categories',default=None)
+    # category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='categories',default=None)
+    category  = models.CharField(max_length=20,default= None)
     price = models.IntegerField(default= 0)
 
     

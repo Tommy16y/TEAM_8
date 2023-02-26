@@ -6,7 +6,7 @@ from applications.account.send_email import send_activateion_code
 User =get_user_model()
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(required = True,min_length=5,write_only = True)
+    password2 = serializers.CharField(required = True,min_length=2,write_only = True)
 
     class Meta:
         model = User
