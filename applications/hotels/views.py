@@ -13,6 +13,9 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from applications.feedback.models import CommentLike
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+
 
 class CustomPagination(PageNumberPagination):
     page_size = 3 
@@ -29,7 +32,7 @@ class CustomPagination(PageNumberPagination):
 #     def perform_create(self, serializer):
 #         return serializer.save(owner = self.request.user)
 
-
+@method_decorator(cache_page(120),name='dispatch')
 class HotelModelViewSet(mixins.CreateModelMixin,
                    mixins.RetrieveModelMixin,
                    mixins.UpdateModelMixin,
@@ -49,10 +52,12 @@ class HotelModelViewSet(mixins.CreateModelMixin,
 
 
 
+
+
+
+
     
-        
-
-
+    
 class HotelDetailAPIView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Hotels.objects.all()
@@ -74,8 +79,6 @@ class CommentModelViewSet(ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-
-
     @action(methods=['POST'],detail=True)  # lokalhost:8000/api/v1/post/15/like/
     def like(self,request,pk,*args,**kwargs):
         user = request.user
@@ -94,7 +97,9 @@ class CommentModelViewSet(ModelViewSet):
 
     
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)      
+        serializer.save(owner=self.request.user)  
+
+
      
 
 
