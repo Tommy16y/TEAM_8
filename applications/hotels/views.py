@@ -4,7 +4,7 @@ from rest_framework import mixins
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly , IsAdminUser
 # Create your views here.
 from applications.hotels.models import Hotels,Comment
-from applications.hotels.serializer import HotelSerializer,DeitalHotelSerializer,CommentSerializer
+from applications.hotels.serializer import HotelSerializer,DeitalHotelSerializer,CommentSerializer,HotelsSerializer
 from applications.hotels.permissions import CanCreateBooking
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.filters import OrderingFilter ,SearchFilter
@@ -12,12 +12,12 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from applications.feedback.models import CommentLike,Rating
+from applications.feedback.models import Rating
 from django.db.models import Avg
 from applications.feedback.serializers import RatinggSeriazlier
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
-
+from rest_framework.views import APIView
 
 class CustomPagination(PageNumberPagination):
     page_size = 3 
@@ -81,20 +81,20 @@ class CommentModelViewSet(ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-    @action(methods=['POST'],detail=True)  # lokalhost:8000/api/v1/post/15/like/
-    def like(self,request,pk, *args, **kwargs):
-        user = request.user
-        # print(user), '!!!!!!!!!'
-        like_obj,_ = CommentLike.objects.get_or_create(owner=user,comment_id=pk)
-        like_obj.is_like = not like_obj.is_like
-        like_obj.save()
-        status = 'liked'
+    # @action(methods=['POST'],detail=True)  # lokalhost:8000/api/v1/post/15/like/
+    # def like(self,request,pk, *args, **kwargs):
+    #     user = request.user
+    #     # print(user), '!!!!!!!!!'
+    #     like_obj,_ = CommentLike.objects.get_or_create(owner=user,comment_id=pk)
+    #     like_obj.is_like = not like_obj.is_like
+    #     like_obj.save()
+    #     status = 'liked'
 
-        if not like_obj.is_like:
-            status = 'unliked'
+    #     if not like_obj.is_like:
+    #         status = 'unliked'
         
 
-        return Response({'status': status})   
+    #     return Response({'status': status})   
 
 
     
@@ -102,32 +102,12 @@ class CommentModelViewSet(ModelViewSet):
         serializer.save(owner=self.request.user)  
 
 
-     
-
-
-# class RecomendedModelViewSet(ModelViewSet):
-
-#     queryset = Hotels.objects.all()
-#     serializer_class = HotelSerializer
-#     permission_classes = [IsAuthenticatedOrReadOnly]
+class RecommendedHotelsView(generics.ListAPIView):
+    queryset = Hotels.objects.all()
+    serializer_class = HotelsSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
     
-
-
-    
-
-    
-
-    
-# class HotelList(generics.ListAPIView):
-#     serializer_class = HotelSerializer
-#     permission_classes = [IsAuthenticatedOrReadOnly]
-
-
-#     # def get_queryset(self):
-#     #     hotel_ids = RatingList.get_queryset(self=self).values_list('id', flat=True)
-#     #     return Hotels.objects.filter(id__in=hotel_ids)
-#     def get(self, request):
-#         rating = Rating.objects.annotate(avg_rating=Avg('rating')).filter(avg_rating__gt=6)
-#         print(rating)
-#         serializer = RatinggSeriazlier(rating, many=True)
-#         return Response(serializer.data)
+    def get_queryset(self):
+        queryset = Hotels.objects.annotate(avg_rating=Avg('ratings__rating')).filter(avg_rating__gt=6)
+        
+        return queryset

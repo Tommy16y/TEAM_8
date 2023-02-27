@@ -5,12 +5,13 @@ from applications.hotels.views import *
 
 router = DefaultRouter()
 # router.register('',CommentModelViewSet)
-router.register('like',CommentLikeModelViewSet)
+# router.register('like',CommentLikeModelViewSet)
 router.register('favorite',FavoriteViewSet)
 router.register('rating',RatingModelViewSet)
 
 urlpatterns = [
     path('',include(router.urls)),
+    path('recommended/', RecommendedHotelsView.as_view(),name='recommended-hotels')
     # path('rec',RatingList.as_view(), name='hotel-list'),
     # path('like/<int:id>/',CommentLikeModelViewSet.as_view()),
     
