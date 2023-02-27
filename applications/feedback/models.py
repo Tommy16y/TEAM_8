@@ -34,7 +34,7 @@ class Rating(models.Model):
         validators=[
             MinValueValidator(1),
             MaxValueValidator(10)    
-        ]
+        ],blank=True,null=True
     )
 
     def str(self):

@@ -2,6 +2,7 @@ from rest_framework import serializers
 from applications.hotels.models import Hotels, HotelImage,Comment
 from applications.rooms.serializers import HotelRoomsSerializer,HotelRoomSerializer
 from applications.rooms.models import HotelRooms
+from applications.feedback.models import Rating
 from django.db.models import Avg 
 
 
@@ -64,15 +65,9 @@ class DeitalHotelSerializer(serializers.ModelSerializer):
         return representation
     
 
-# class RecomendedSerializer(serializers.Serializer):
-#     class Meta:
-#         model = Hotels
-#         fields = '__all__'
-    
-
-#     def to_representation(self, instance):
-#         representation = super().to_representation(instance)
-#         comm = instance.hotels.all()
-        
-        
-    
+class HotelsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Hotels
+        fields = ('name','adress','avg_rating',)
+        read_only_fields = ('id','avg_rating',)
+    avg_rating = serializers.DecimalField(max_digits=3, decimal_places=2, coerce_to_string=False)

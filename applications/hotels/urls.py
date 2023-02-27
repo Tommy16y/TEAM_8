@@ -6,8 +6,9 @@ from django.views.decorators.cache import cache_page
 
 
 router = DefaultRouter()
-router.register('',HotelModelViewSet)
 router.register('comments',CommentModelViewSet)
+router.register('',HotelModelViewSet)
+
 
 urlpatterns = [
     path('', include (router.urls)),
